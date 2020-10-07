@@ -150,10 +150,11 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
             # Check the cache for the commit_time, if not call the API
             metric_ts = self._commit_dict.get(commit_sha)
             if metric_ts is None:
-                logging.debug("sha: %s, commit_timestamp not found in cache, executing API call." % (commit_sha))
+                logging.debug("sha: %s, commit_timestamp not found in cache, executing API call." % commit_sha)
                 metric = self.get_commit_time(metric)
                 # If commit time is None, then we could not get the value from the API
                 if metric.commit_time is None:
+                    logging.debug("Could not find valid metric for commit %s" % commit_sha)
                     return None
                 # Add the timestamp to the cache
                 self._commit_dict[metric.commit_hash] = metric.commit_timestamp
