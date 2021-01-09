@@ -137,7 +137,7 @@ This exporter provides several configuration options, passed via environment var
     
 ### Failure Time Exporter
 
-The job of the deploy time exporter is to capture the timestamp at which a failure occurs in a production environment and when it is resolved.
+The job of the deploy time exporter is to capture the timestamp at which a failure occurs in a production environment and when it is resolved.  This is tracked via the ticketing system which can be from Jira, GitLab or ServiceNow.  
 
 #### Suggested Secrets
 
@@ -149,6 +149,13 @@ Create a secret containing your Jira information.
     --from-literal=TOKEN=<personal access token> \
     -n pelorus
 
+For GitLab create a secret containing the following information.
+
+    oc create secret generic gitlab-secret \
+    --from-literal=TRACKER_PROVIDER=gitlab \
+    --from-literal=USER=<username> \
+    --from-literal=TOKEN=<personal access token> 
+    
 For ServiceNow create a secret containing your ServiceNow information.
 
     oc create secret generic snow-secret \
